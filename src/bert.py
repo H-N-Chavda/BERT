@@ -29,8 +29,12 @@ class BertForPreTraining(nn.Module):
         super().__init__()
         self.config = config
 
-        # Core BERT components
-        self.embeddings = Embeddings(config)
+        self.embeddings = Embeddings(
+            vocab_size=config.vocab_size,
+            hidden_size=config.hidden_size,
+            max_position_embeddings=config.max_position_embeddings,
+            dropout_prob=config.hidden_dropout_prob
+        )
         self.encoder = BertEncoder(config)
 
         # Heads
